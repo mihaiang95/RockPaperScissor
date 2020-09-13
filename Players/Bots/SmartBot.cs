@@ -3,9 +3,9 @@ using System;
 
 namespace RockPaperScissor.Players.Bots
 {
-    class SmartBot : BotPlayer
+    public class SmartBot : BotPlayer
     {
-        PlaysEnum? lastChoice = null;
+        protected PlaysEnum? lastChoice = null;
         public override AfterRoundCallback callback => (PlaysEnum myPlay, PlaysEnum otherPlay, GameResults result) =>
         {
             this.lastChoice = myPlay;
