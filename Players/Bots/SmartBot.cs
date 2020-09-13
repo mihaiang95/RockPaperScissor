@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using RockPaperScissor.Enums;
+using System;
 
 namespace RockPaperScissor.Players.Bots
 {
@@ -28,9 +27,9 @@ namespace RockPaperScissor.Players.Bots
                         break;
                     }
                 }
-
-                return newChoice.HasValue ? newChoice.Value : this.GenerateRandomPlay();
             }
+
+            return newChoice.HasValue ? newChoice.Value : this.GenerateRandomPlay();
         }
     }
 }

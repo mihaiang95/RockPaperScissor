@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace RockPaperScissor.Players
 {
@@ -13,7 +11,7 @@ namespace RockPaperScissor.Players
 
         public PlaysEnum GetChoice()
         {
-            Console.Write("Please select option from 0 to {0}:", Rules.TotalPossiblePlaysEnum - 1);
+            Console.Write("Please select option from 0 to {0}: ", Rules.TotalPossiblePlaysEnum - 1);
 
             string choice = Console.ReadLine();
             int choiceInt = Convert.ToInt32(choice);

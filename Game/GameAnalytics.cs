@@ -1,6 +1,5 @@
-﻿using System;
+﻿using RockPaperScissor.Enums;
 using System.Collections.Generic;
-using System.Text;
 
 namespace RockPaperScissor
 {
@@ -10,12 +9,5 @@ namespace RockPaperScissor
         public int[] scoreTable = new int[3];
 
         public GameResults winner = GameResults.Undecided;
-    }
-
-    public enum GameResults
-    {
-        Undecided = 0,
-        Player1Victory = 1,
-        Player2Victory = 2
     }
 }

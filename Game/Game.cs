@@ -1,7 +1,5 @@
-﻿using RockPaperScissor.Players;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using RockPaperScissor.Enums;
+using RockPaperScissor.Players;
 
 namespace RockPaperScissor
 {
@@ -30,7 +28,7 @@ namespace RockPaperScissor
             gameAnalytics = new GameAnalytics();
         }
 
-        public GameAnalytics StartGame()
+        public GameAnalytics PlayGame()
         {
             state = GameStates.InProgress;
 
@@ -44,10 +42,11 @@ namespace RockPaperScissor
                 }
 
                 gameAnalytics.roundsHistory.Add(currentRound);
+                
+                gameFinishedCallback?.Invoke(gameAnalytics);
             }
 
             state = GameStates.Finished;
-
             return gameAnalytics;
         }
 
@@ -58,21 +57,12 @@ namespace RockPaperScissor
                 player1Play = player1.Play(),
                 player2Play = player2.Play(),
             };
-
             round.result = (GameResults) Rules.DecideWinner(round.player1Play, round.player2Play);
 
-            if(player1.callback != null)
-            {
-                player1.callback(round.player1Play, round.player2Play, (GameResults) round.result);
-            }
-            if (player2.callback != null)
-            {
-                player2.callback(round.player2Play, round.player1Play, RevertResult((int) round.result));
-            }
-            if(afterRoundCallback != null)
-            {
-                afterRoundCallback(round.player1Play, round.player2Play, (GameResults)round.result);
-            }
+            player1.callback?.Invoke(round.player1Play, round.player2Play, (GameResults)round.result);
+            player2.callback?.Invoke(round.player2Play, round.player1Play, RevertResult((int)round.result));
+
+            afterRoundCallback?.Invoke(round.player1Play, round.player2Play, (GameResults)round.result);
 
             return round;
         }
@@ -83,14 +73,6 @@ namespace RockPaperScissor
         }
     }
 
-    public enum GameStates 
-    {
-        Started = 0,
-        InProgress = 1,
-        Finished = 2
-    }
-
     public delegate void AfterRoundCallback(PlaysEnum myPlay, PlaysEnum otherPlay, GameResults result);
-    public delegate void GameFinishedCallback(GameAnalytics gameresult);
-    
+    public delegate void GameFinishedCallback(GameAnalytics gameresult);  
 }

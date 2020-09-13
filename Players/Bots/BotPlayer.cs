@@ -1,9 +1,6 @@
-﻿using RockPaperScissor.Players;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 
-namespace RockPaperScissor.Players
+namespace RockPaperScissor.Players.Bots
 {
     public abstract class BotPlayer : Player
     {
@@ -11,12 +8,11 @@ namespace RockPaperScissor.Players
         {
             return GenerateChoice();
         }
-
-        protected abstract PlaysEnum GenerateChoice();
-
         protected PlaysEnum GenerateRandomPlay()
         {
-            return(PlaysEnum) new Random().Next(Rules.TotalPossiblePlaysEnum);
+            return (PlaysEnum)new Random().Next(Rules.TotalPossiblePlaysEnum);
         }
+
+        protected abstract PlaysEnum GenerateChoice();
     }
 }

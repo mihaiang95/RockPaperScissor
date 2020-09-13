@@ -1,7 +1,4 @@
-﻿using System;
-using RockPaperScissor;
-
-namespace RockPaperScissor.Players
+﻿namespace RockPaperScissor.Players.Bots
 {
     class RandomBotPlayer : BotPlayer
     {

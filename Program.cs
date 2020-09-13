@@ -1,4 +1,6 @@
-﻿using RockPaperScissor.Players;
+﻿using RockPaperScissor.Enums;
+using RockPaperScissor.Players;
+using RockPaperScissor.Players.Bots;
 using System;
 
 namespace RockPaperScissor
@@ -7,12 +9,13 @@ namespace RockPaperScissor
     {
         static void Main(string[] args)
         {
-            Player bot = new RandomBotPlayer();
+            Player Rbot = new RandomBotPlayer();
+            Player Sbot = new SmartBot();
             Player human = new HumanPlayer();
 
-            Game game = new Game(bot, human, 2, AfterRound, GameFinished);
+            Game game = new Game(Rbot, human, 2, AfterRound, GameFinished);
 
-            GameAnalytics gameResults = game.StartGame();
+            GameAnalytics gameResults = game.PlayGame();
         }
 
         public static void AfterRound(PlaysEnum player1Play, PlaysEnum player2Play, GameResults result)
