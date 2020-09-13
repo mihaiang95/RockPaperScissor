@@ -6,24 +6,24 @@ namespace RockPaperScissor
 {
     public static class Rules
     {
-        private static int[,] playsHierarchy = { { 0, 2, 1 }, { 1, 0, 2 }, { 2, 1, 0 } };
-        public static int TotalPossiblePlays { 
+        private static int[,] PlaysEnumHierarchy = { { 0, 2, 1 }, { 1, 0, 2 }, { 2, 1, 0 } };
+        public static int TotalPossiblePlaysEnum { 
             get 
             {
-                return Enum.GetNames(typeof(Plays)).Length;
+                return Enum.GetNames(typeof(PlaysEnum)).Length;
             } 
         }
 
-        public static int DecideWinner(int play1, int play2)
+        public static int DecideWinner(PlaysEnum play1, PlaysEnum play2)
         {
-            return playsHierarchy[(int)play1, (int)play2];
+            return PlaysEnumHierarchy[(int)play1, (int)play2];
         }
     }
 
-    public enum Plays
+    public enum PlaysEnum
     {
-        Rock = 1,
-        Paper = 2,
-        Scissor = 3
+        Rock = 0,
+        Paper = 1,
+        Scissor = 2
     }
 }

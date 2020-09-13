@@ -5,9 +5,16 @@ namespace RockPaperScissor.Players
 {
     class RandomBotPlayer : BotPlayer
     {
-        protected override int GenerateChoice()
+        public override AfterRoundCallback callback => TestCallBack;
+
+        public void TestCallBack(PlaysEnum play, PlaysEnum play2, GameResults winner)
         {
-            return new Random().Next(Rules.TotalPossiblePlays);
+            //Console.WriteLine(play.ToString() + " " + play2.ToString() + " " + winner.ToString());
+        }
+
+        protected override PlaysEnum GenerateChoice()
+        {
+            return (PlaysEnum) new Random().Next(Rules.TotalPossiblePlaysEnum);
         }
     }
 }

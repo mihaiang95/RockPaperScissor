@@ -7,11 +7,13 @@ namespace RockPaperScissor.Players
 {
     public abstract class BotPlayer : IPlayer
     {
-        public int Play()
+        public virtual AfterRoundCallback callback { get; }
+
+        public PlaysEnum Play()
         {
             return GenerateChoice();
         }
 
-        protected abstract int GenerateChoice();
+        protected abstract PlaysEnum GenerateChoice();
     }
 }

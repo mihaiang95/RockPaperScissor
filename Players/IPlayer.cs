@@ -4,8 +4,10 @@ using System.Text;
 
 namespace RockPaperScissor.Players
 {
-    interface IPlayer
+    public interface IPlayer
     {
-        int Play();
+        PlaysEnum Play();
+
+        AfterRoundCallback callback { get; }
     }
 }

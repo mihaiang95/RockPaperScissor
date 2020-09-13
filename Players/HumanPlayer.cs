@@ -6,14 +6,21 @@ namespace RockPaperScissor.Players
 {
     class HumanPlayer : IPlayer
     {
-        public int Play()
+        public AfterRoundCallback callback => null;
+
+        public PlaysEnum Play()
         {
-            Console.Write("Please select option from 0 to {0}:", Rules.TotalPossiblePlays);
-            
+            return GetChoice();
+        }
+
+        public PlaysEnum GetChoice()
+        {
+            Console.Write("Please select option from 0 to {0}:", Rules.TotalPossiblePlaysEnum - 1);
+
             string choice = Console.ReadLine();
             int choiceInt = Convert.ToInt32(choice);
 
-            return choiceInt;
+            return (PlaysEnum)choiceInt;
         }
     }
 }

@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace RockPaperScissor.Game
+namespace RockPaperScissor
 {
-    class Round
+    public class Round
     {
-        Plays player1Play;
-        Plays player2Play;
+        public PlaysEnum player1Play;
+        public PlaysEnum player2Play;
 
-        int result;
+        public GameResults result;
     }
 }
