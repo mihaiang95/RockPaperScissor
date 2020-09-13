@@ -1,4 +1,6 @@
-﻿namespace RockPaperScissor.Players.Bots
+﻿using RockPaperScissor.Enums;
+
+namespace RockPaperScissor.Players.Bots
 {
     class RandomBotPlayer : BotPlayer
     {

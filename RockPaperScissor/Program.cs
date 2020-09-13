@@ -13,7 +13,7 @@ namespace RockPaperScissor
             Player Sbot = new SmartBot();
             Player human = new HumanPlayer();
 
-            Game game = new Game(Rbot, human, 2, AfterRound, GameFinished);
+            Game game = new Game(human, Sbot, 2, AfterRound, GameFinished);
 
             GameAnalytics gameResults = game.PlayGame();
         }

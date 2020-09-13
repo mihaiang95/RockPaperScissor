@@ -6,7 +6,7 @@ using RockPaperScissor.Players.Bots;
 namespace RockPaperScissorTests
 {
     [TestClass]
-    public class UnitTest1
+    public class BotTests
     {
         [DataTestMethod]
         [DataRow(PlaysEnum.Rock, PlaysEnum.Paper)]

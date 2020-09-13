@@ -1,4 +1,6 @@
-﻿namespace RockPaperScissor.Players
+﻿using RockPaperScissor.Enums;
+
+namespace RockPaperScissor.Players
 {
     public abstract class Player : IPlayer
     {

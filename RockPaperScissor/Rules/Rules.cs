@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RockPaperScissor.Enums;
+using System;
 
 namespace RockPaperScissor
 {
@@ -20,10 +21,4 @@ namespace RockPaperScissor
         }
     }
 
-    public enum PlaysEnum
-    {
-        Rock = 0,
-        Paper = 1,
-        Scissor = 2
-    }
 }

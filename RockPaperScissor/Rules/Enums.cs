@@ -12,5 +12,11 @@
         InProgress = 1,
         Finished = 2
     }
+    public enum PlaysEnum
+    {
+        Rock = 0,
+        Paper = 1,
+        Scissor = 2
+    }
 
 }

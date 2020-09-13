@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RockPaperScissor.Enums;
+using System;
 
 namespace RockPaperScissor.Players.Bots
 {
