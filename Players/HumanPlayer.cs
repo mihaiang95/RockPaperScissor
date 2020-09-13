@@ -4,11 +4,9 @@ using System.Text;
 
 namespace RockPaperScissor.Players
 {
-    class HumanPlayer : IPlayer
-    {
-        public AfterRoundCallback callback => null;
-
-        public PlaysEnum Play()
+    class HumanPlayer : Player
+    { 
+        public override PlaysEnum Play()
         {
             return GetChoice();
         }

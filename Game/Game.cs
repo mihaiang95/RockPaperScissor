@@ -7,22 +7,26 @@ namespace RockPaperScissor
 {
     public class Game
     {
-        IPlayer player1;
-        IPlayer player2;
+        Player player1;
+        Player player2;
 
-        AfterRoundCallback player1Callback, player2Callback;
+        AfterRoundCallback afterRoundCallback;
+        GameFinishedCallback gameFinishedCallback;
 
         readonly int roundsToWin;
         GameAnalytics gameAnalytics;
 
         GameStates state;
 
-        public Game(IPlayer player1, IPlayer player2, int roundsForWin)
+        public Game(Player player1, Player player2, int roundsForWin, AfterRoundCallback afterRoundCallback = null, GameFinishedCallback gameFinishedCallback = null)
         {
             this.player1 = player1;
             this.player2 = player2;
+            
+            this.gameFinishedCallback = gameFinishedCallback;
+            this.afterRoundCallback = afterRoundCallback;
+            
             roundsToWin = roundsForWin;
-
             gameAnalytics = new GameAnalytics();
         }
 
@@ -65,9 +69,10 @@ namespace RockPaperScissor
             {
                 player2.callback(round.player2Play, round.player1Play, RevertResult((int) round.result));
             }
-
-            Console.WriteLine("Player 1:" + round.player1Play + "  Player 2: " + round.player2Play);
-            Console.WriteLine("Round result:" + round.result);
+            if(afterRoundCallback != null)
+            {
+                afterRoundCallback(round.player1Play, round.player2Play, (GameResults)round.result);
+            }
 
             return round;
         }
@@ -86,5 +91,6 @@ namespace RockPaperScissor
     }
 
     public delegate void AfterRoundCallback(PlaysEnum myPlay, PlaysEnum otherPlay, GameResults result);
+    public delegate void GameFinishedCallback(GameAnalytics gameresult);
     
 }
