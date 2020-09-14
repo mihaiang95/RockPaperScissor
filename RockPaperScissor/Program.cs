@@ -19,7 +19,7 @@ namespace RockPaperScissor
 
                 while (player1 == null || player2 == null)
                 {
-                    SelectPlayers(out player1, out player2);
+                    SelectPlayers(ref player1, ref player2);
                 }
 
                 Game game = new Game(player1, player2, AfterRoundCallback, GameFinishedCallback);
@@ -40,7 +40,7 @@ namespace RockPaperScissor
             Console.WriteLine("Winner is:" + gameResults.winner + "\n");
         }
 
-        private static void SelectPlayers(out Player player1,out Player player2)
+        private static void SelectPlayers(ref Player player1,ref Player player2)
         {
             Console.WriteLine("Select player 1");
             Console.WriteLine("\t H - Human Player; R - Random Bot; S - SmartBot: ");
