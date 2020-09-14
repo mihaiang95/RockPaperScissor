@@ -8,7 +8,7 @@ namespace RockPaperScissor.Players.Bots
         protected PlaysEnum? lastChoice = null;
         public override AfterRoundCallback callback => (PlaysEnum myPlay, PlaysEnum otherPlay, GameResults result) =>
         {
-            this.lastChoice = myPlay;
+            lastChoice = myPlay;
         };
 
         protected override PlaysEnum GenerateChoice()
@@ -21,7 +21,7 @@ namespace RockPaperScissor.Players.Bots
 
                 foreach (PlaysEnum play in plays)
                 {
-                    if (Rules.DecideWinner(lastChoice.Value, play) == (int)GameResults.Player2Victory)
+                    if (Rules.Instance.DecideWinner(lastChoice.Value, play) == (int)GameResults.Player2Victory)
                     {
                         newChoice = play;
                         break;
@@ -29,7 +29,7 @@ namespace RockPaperScissor.Players.Bots
                 }
             }
 
-            return newChoice.HasValue ? newChoice.Value : this.GenerateRandomPlay();
+            return newChoice.HasValue ? newChoice.Value : GenerateRandomPlay();
         }
     }
 }

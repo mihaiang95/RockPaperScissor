@@ -1,21 +1,42 @@
 ﻿using RockPaperScissor.Enums;
 using System;
+using System.Configuration;
 
 namespace RockPaperScissor
 {
-    public static class Rules
+    public sealed class Rules
     {
-        private static int[,] playsEnumHierarchy = { { 0, 2, 1 }, { 1, 0, 2 }, { 2, 1, 0 } };
-        public const int NumberOfWinsForVictory = 2;
-        
-        public static int TotalPossiblePlaysEnum { 
-            get 
-            {
-                return Enum.GetNames(typeof(PlaysEnum)).Length;
-            } 
+        public static Rules Instance { get; } = new Rules();
+        static Rules()
+        {
         }
 
-        public static int DecideWinner(PlaysEnum play1, PlaysEnum play2)
+        private Rules()
+        {
+            GetGameRulesFromConfig(out NumberOfWinsForVictory, out TotalPossiblePlays);
+        }
+
+        private int[,] playsEnumHierarchy = null;
+        public readonly int NumberOfWinsForVictory;
+        public readonly int TotalPossiblePlays;
+
+        public void GetGameRulesFromConfig(out int numberOfWins, out int totalPossiblePlays)
+        {
+            numberOfWins = Convert.ToInt32(ConfigurationManager.AppSettings["numberOfWins"]);
+            totalPossiblePlays = Convert.ToInt32(ConfigurationManager.AppSettings["totalPlays"]);
+            playsEnumHierarchy = new int[TotalPossiblePlays, TotalPossiblePlays];
+
+            for (int i = 0; i < TotalPossiblePlays; i++)
+            {
+                var row = ConfigurationManager.AppSettings[i.ToString()].Split(',');
+                for (int j = 0; j < row.Length; j++)
+                {
+                    playsEnumHierarchy[i, j] = Convert.ToInt32(row[j]);
+                }
+            }
+        }
+
+        public int DecideWinner(PlaysEnum play1, PlaysEnum play2)
         {
             return playsEnumHierarchy[(int)play1, (int)play2];
         }

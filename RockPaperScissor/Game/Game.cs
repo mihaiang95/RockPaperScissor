@@ -1,12 +1,13 @@
 ﻿using RockPaperScissor.Enums;
 using RockPaperScissor.Players;
+using System;
 
 namespace RockPaperScissor
 {
     public class Game
     {
-        Player player1;
-        Player player2;
+        readonly Player player1;
+        readonly Player player2;
 
         AfterRoundCallback afterRoundCallback;
         GameFinishedCallback gameFinishedCallback;
@@ -16,7 +17,7 @@ namespace RockPaperScissor
 
         GameStates state;
 
-        public Game(Player player1, Player player2, int roundsForWin, AfterRoundCallback afterRoundCallback = null, GameFinishedCallback gameFinishedCallback = null)
+        public Game(Player player1, Player player2, AfterRoundCallback afterRoundCallback = null, GameFinishedCallback gameFinishedCallback = null)
         {
             this.player1 = player1;
             this.player2 = player2;
@@ -24,15 +25,16 @@ namespace RockPaperScissor
             this.gameFinishedCallback = gameFinishedCallback;
             this.afterRoundCallback = afterRoundCallback;
             
-            roundsToWin = roundsForWin;
+            roundsToWin = Rules.Instance.NumberOfWinsForVictory;
             gameAnalytics = new GameAnalytics();
         }
 
         public GameAnalytics PlayGame()
         {
             state = GameStates.InProgress;
+            ShowPlays();
 
-            while(gameAnalytics.winner == GameResults.Undecided)
+            while (gameAnalytics.winner == GameResults.Undecided)
             {
                 var currentRound = PlayRound();
 
@@ -42,10 +44,9 @@ namespace RockPaperScissor
                 }
 
                 gameAnalytics.roundsHistory.Add(currentRound);
-                
-                gameFinishedCallback?.Invoke(gameAnalytics);
             }
 
+            gameFinishedCallback?.Invoke(gameAnalytics);
             state = GameStates.Finished;
             return gameAnalytics;
         }
@@ -57,7 +58,7 @@ namespace RockPaperScissor
                 player1Play = player1.Play(),
                 player2Play = player2.Play(),
             };
-            round.result = (GameResults) Rules.DecideWinner(round.player1Play, round.player2Play);
+            round.result = (GameResults) Rules.Instance.DecideWinner(round.player1Play, round.player2Play);
 
             player1.callback?.Invoke(round.player1Play, round.player2Play, (GameResults)round.result);
             player2.callback?.Invoke(round.player2Play, round.player1Play, RevertResult((int)round.result));
@@ -65,6 +66,16 @@ namespace RockPaperScissor
             afterRoundCallback?.Invoke(round.player1Play, round.player2Play, (GameResults)round.result);
 
             return round;
+        }
+
+        private void ShowPlays()
+        {
+            Console.WriteLine("\n");
+            foreach (PlaysEnum play in Enum.GetValues(typeof(PlaysEnum)))
+            {
+                Console.WriteLine($"{play} - {(int)play}");
+            }
+            Console.WriteLine("\n");
         }
 
         private GameResults RevertResult(int result)

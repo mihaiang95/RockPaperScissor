@@ -11,7 +11,7 @@ namespace RockPaperScissor.Players.Bots
         }
         protected PlaysEnum GenerateRandomPlay()
         {
-            return (PlaysEnum)new Random().Next(Rules.TotalPossiblePlaysEnum);
+            return (PlaysEnum)new Random().Next(Rules.Instance.TotalPossiblePlays);
         }
 
         protected abstract PlaysEnum GenerateChoice();

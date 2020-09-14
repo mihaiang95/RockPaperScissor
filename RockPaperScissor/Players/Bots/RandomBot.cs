@@ -2,11 +2,11 @@
 
 namespace RockPaperScissor.Players.Bots
 {
-    class RandomBotPlayer : BotPlayer
+    class RandomBot : BotPlayer
     {
         protected override PlaysEnum GenerateChoice()
         {
-            return this.GenerateRandomPlay();
+            return GenerateRandomPlay();
         }
     }
 }

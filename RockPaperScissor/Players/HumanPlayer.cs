@@ -12,10 +12,20 @@ namespace RockPaperScissor.Players
 
         public PlaysEnum GetChoice()
         {
-            Console.Write("Please select option from 0 to {0}: ", Rules.TotalPossiblePlaysEnum - 1);
+            int choiceInt;
 
-            string choice = Console.ReadLine();
-            int choiceInt = Convert.ToInt32(choice);
+            do
+            {
+                Console.Write("Please select option from 0 to {0}: ", Rules.Instance.TotalPossiblePlays - 1);
+
+                string choice = Console.ReadLine();
+                
+                if(!Int32.TryParse(choice, out choiceInt))
+                {
+                    choiceInt = 0;
+                    Console.WriteLine("Automatically selected: " + choiceInt);
+                }
+            } while (choiceInt < 0 || choiceInt > Rules.Instance.TotalPossiblePlays);
 
             return (PlaysEnum)choiceInt;
         }
